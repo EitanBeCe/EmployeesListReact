@@ -15,7 +15,10 @@ class App extends Component {
                 {name: 'John C.', salary: '$' + 800, increase: false, rise: true, id: 1},
                 {name: 'Alex A.', salary: '$' + 900, increase: true, rise: false, id: 2},
                 {name: 'Carl B.', salary: '$' + 1000, increase: false, rise: false, id: 3},
-            ]
+            ],
+            //под поиск
+            term: '',
+            filter: 'all'
         }
         this.maxId = 4 
     }
@@ -34,12 +37,13 @@ class App extends Component {
             rise: false,
             id: this.maxId++
         }
+
         this.setState(({data}) => {
             const newArr = [...data, newItem];
             return {
                 data: newArr
             }
-        });
+        })
     }
 
     // onToggleIncrease = (id) => {
@@ -51,9 +55,7 @@ class App extends Component {
     //         // const newArr = [...data.slice(0, index), newItem, ...data.slice(index+1)]
     //         // return {
     //         //     data: newArr
-    //         // }
-
-            
+    //         // }        
     //     // })
         
     //     // второй вариант кода. получаем массив объектов, в котором только нужный изменился
@@ -83,27 +85,68 @@ class App extends Component {
         this.setState(({data}) => ({   
             data: data.map(item => {
                 if (item.id === id) {
-                    return {...item, [prop]: !item[prop]}
+                    return {...item, [prop]: !item[prop]};
                 }
-                return item 
+                return item;
             })
         }));
     }
 
+    //Функ поиска. аргументы - массив данных для фильтрации и строка которую ввели в поиске.
+    searchEmp = (items, term) => { 
+        // проверка на пустую строку
+        if(items.length === 0) {
+            return items
+        }
+        //отфильтровать на совпадение строк
+        return items.filter(item => {
+            return item.name.indexOf(term) > -1
+        })
+        // сейчас если в term наверху написать то поиск работает
+    }
+
+    // устанавливать состояние поиска (для подъема состояния term в  app)
+    onUpdateSearch = (term) => {
+        //вместо term: term можно просто term, это сокращен запись объектов
+        this.setState({term: term})
+    }
+
+    // создаение 3х вариантов поиска
+    filterPost = (items, filter) => {
+        switch(filter) {
+            // реакт автоматом ставит break
+            // вернуть только соответствующий список где по заданному параметру стоит true
+            case 'rise':
+                return items.filter(item => item.rise)
+            case 'moreThan1000':
+                return items.filter(item => item.salary > 1000)
+            default:
+                return items
+        }
+    }
+
+    // изменение класса активности при нажатии на конпки фильтров
+    // все что может сделать сам пользователь назначает через on...
+    onFilterSelect = (filter) => {
+        this.setState({filter})
+    }
+
     render() {
-        const emploees = this.state.data.length
-        const increased = this.state.data.filter(item => item.increase).length
+        const {data, term, filter} = this.state;
+        const emploees = this.state.data.length;
+        const increased = this.state.data.filter(item => item.increase).length;
+        const visibleData = this.filterPost(this.searchEmp(data, term), filter);
         return (
             <div className="app">
                 <AppInfo emploees={emploees}
                         increased={increased}/>
     
                 <div className="search-panel">
-                    <SearchPanel/>
-                    <AppFilter/>
+                    <SearchPanel onUpdateSearch={this.onUpdateSearch}/>
+                    <AppFilter filter={filter} onFilterSelect={this.onFilterSelect}/>
                 </div>
     
-                <EmploeesList data={this.state.data}
+                <EmploeesList data={visibleData}
                             onDelete={this.deleteItem} 
                             onToggleProp={this.onToggleProp}/>
                 <EmploeesAddForm onAdd={this.addItem} />

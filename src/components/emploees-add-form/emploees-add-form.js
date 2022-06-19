@@ -18,12 +18,15 @@ class EmploeesAddForm extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.onAdd(this.state.name, '$'+this.state.salary);
+        
+        if (this.state.name.length < 3 || !this.state.salary) return
+
+        this.props.onAdd(this.state.name, `$${this.state.salary}`);
         //очистить форму после этого
         this.setState({
             name: '',
             salary: ''
-        })
+        });
     }
 
     render() {
@@ -35,12 +38,14 @@ class EmploeesAddForm extends Component {
                     className="add-form d-flex"
                     onSubmit={this.onSubmit}>
                     <input type="text"
+                        // required
                         className="form-control new-post-label"
                         placeholder="Как его зовут?"
                         name="name"
                         value={name}
                         onChange={this.onValueChange} />
                     <input type="number"
+                        // required
                         className="form-control new-post-label"
                         placeholder="З/П в $?"
                         name="salary"

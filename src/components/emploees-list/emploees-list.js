@@ -7,8 +7,9 @@ const EmploeesList = ({data, onDelete, onToggleProp}) => {
         const {id, ...itemProps} = item;
         return (
             <EmploeesListItem key={id} {...itemProps} // ===   name={item.name} salary={item.salary}
-                    onDelete={()=> onDelete(id)} 
-                    onToggleProp={(e) => onToggleProp(id, e.currentTarget.getAttribute('data-toggle'))}/> 
+                // стрелочную функцию тут юзают когда надо передать аргумент
+                onDelete={()=> onDelete(id)} 
+                onToggleProp={(e) => onToggleProp(id, e.currentTarget.getAttribute('data-toggle'))}/> 
         )
     })
 
