@@ -12,9 +12,9 @@ class App extends Component {
         super(props)
         this.state = {
             data: [
-                {name: 'John C.', salary: '$' + 800, increase: false, rise: true, id: 1},
-                {name: 'Alex A.', salary: '$' + 900, increase: true, rise: false, id: 2},
-                {name: 'Carl B.', salary: '$' + 1000, increase: false, rise: false, id: 3},
+                {name: 'John C.', salary: 800, increase: false, rise: true, id: 1},
+                {name: 'Alex A.', salary: 900, increase: true, rise: false, id: 2},
+                {name: 'Carl B.', salary: 1100, increase: false, rise: false, id: 3},
             ],
             //под поиск
             term: '',

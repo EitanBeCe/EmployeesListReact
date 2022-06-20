@@ -2,13 +2,12 @@ import { Component } from 'react'
 import './emploees-add-form.css'
 
 class EmploeesAddForm extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
+    
+    state = {
             name: '',
             salary: ''
         }
-    }
+    
 
     onValueChange = (e) => {
         this.setState({
@@ -21,7 +20,7 @@ class EmploeesAddForm extends Component {
         
         if (this.state.name.length < 3 || !this.state.salary) return
 
-        this.props.onAdd(this.state.name, `$${this.state.salary}`);
+        this.props.onAdd(this.state.name, `${this.state.salary}`);
         //очистить форму после этого
         this.setState({
             name: '',

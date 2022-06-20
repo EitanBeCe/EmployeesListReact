@@ -8,9 +8,10 @@ const AppFilter = (props) => {
         {name: 'moreThan1000', label: 'З/П больше 1000$'}
     ];
 
-    const buttons = buttonsData.map(({name, label, onFilterSelect}) => {
+    const buttons = buttonsData.map(({name, label}) => {
         const active = props.filter === name; // это как if, возвращает булин
         const clazz = active ? 'btn-light' : 'btn-outline-light';
+        const {onFilterSelect} = props;
         return (
             <button 
                 type="button"
@@ -26,6 +27,7 @@ const AppFilter = (props) => {
     return (
         <div className="btn-group"> 
             {buttons}
+            
             {/* <button 
                 className="btn btn-light"
                 type="button">
