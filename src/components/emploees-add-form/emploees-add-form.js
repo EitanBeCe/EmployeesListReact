@@ -15,6 +15,9 @@ class EmploeesAddForm extends Component {
         })
     }
 
+    // static onLog = () => {}
+    static logged = 'on'
+
     onSubmit = (e) => {
         e.preventDefault();
         
