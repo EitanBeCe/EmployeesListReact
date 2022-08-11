@@ -1,3 +1,6 @@
+-   Side project - Employees list. Here the user can add/remove employees, set them "for raise" with a star and add them a bonus. One can filter employees in different ways and search them.
+-   Written on React using Class components.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

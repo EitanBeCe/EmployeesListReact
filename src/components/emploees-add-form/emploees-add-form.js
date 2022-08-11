@@ -1,66 +1,66 @@
-import { Component } from 'react'
-import './emploees-add-form.css'
+import { Component } from "react";
+import "./emploees-add-form.css";
 
 class EmploeesAddForm extends Component {
-    
     state = {
-            name: '',
-            salary: ''
-        }
-    
+        name: "",
+        salary: "",
+    };
 
     onValueChange = (e) => {
         this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
+            [e.target.name]: e.target.value,
+        });
+    };
 
     // static onLog = () => {}
-    static logged = 'on'
+    static logged = "on";
 
     onSubmit = (e) => {
         e.preventDefault();
-        
-        if (this.state.name.length < 3 || !this.state.salary) return
+
+        if (this.state.name.length < 3 || !this.state.salary) return;
 
         this.props.onAdd(this.state.name, `${this.state.salary}`);
-        //очистить форму после этого
+        // Clean the form
         this.setState({
-            name: '',
-            salary: ''
+            name: "",
+            salary: "",
         });
-    }
+    };
 
     render() {
-        const {name, salary} = this.state
+        const { name, salary } = this.state;
         return (
             <div className="app-add-form">
-                <h3>Добавьте нового сотрудника</h3>
-                <form
-                    className="add-form d-flex"
-                    onSubmit={this.onSubmit}>
-                    <input type="text"
+                <h3>Add a new employee</h3>
+                <form className="add-form d-flex" onSubmit={this.onSubmit}>
+                    <input
+                        type="text"
                         // required
                         className="form-control new-post-label"
-                        placeholder="Как его зовут?"
+                        placeholder="Name"
                         name="name"
                         value={name}
-                        onChange={this.onValueChange} />
-                    <input type="number"
+                        onChange={this.onValueChange}
+                    />
+                    <input
+                        type="number"
                         // required
                         className="form-control new-post-label"
-                        placeholder="З/П в $?"
+                        placeholder="Salary"
                         name="salary"
                         value={salary}
-                        onChange={this.onValueChange} />
-    
-                    <button type="submit"
-                            className="btn btn-outline-light"
-                            >Добавить</button>
+                        onChange={this.onValueChange}
+                    />
+
+                    <button type="submit" className="btn btn-outline-light">
+                        Add
+                    </button>
                 </form>
             </div>
-        )
+        );
     }
 }
 
-export default EmploeesAddForm
+export default EmploeesAddForm;

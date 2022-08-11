@@ -1,32 +1,33 @@
-import { Component } from 'react'
-import './search-panel.css'
+import { Component } from "react";
+import "./search-panel.css";
 
 class SearchPanel extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-            // это нужно будет поднимать до App
-            term: ''
-        }
+            // Will be lifted to App
+            term: "",
+        };
     }
-    // создание события и забор ввода пользователя
+    // Event, lifting of input
     onUpdateSearch2 = (e) => {
-        const term = e.target.value
-        this.setState({term})
-        // Проброс состояния вверх
-        this.props.onUpdateSearch(term)
-    }
-    
+        const term = e.target.value;
+        this.setState({ term });
+        // Lifting up
+        this.props.onUpdateSearch(term);
+    };
+
     render() {
         return (
-            <input 
-                type="text" 
-                className="form-control search-input" //это классы из бутстрепа
-                placeholder="Найти сотрудника"
+            <input
+                type="text"
+                className="form-control search-input" // Bootstrap classes
+                placeholder="Employee search"
                 value={this.state.term}
-                onChange={this.onUpdateSearch2}/> 
-        )
+                onChange={this.onUpdateSearch2}
+            />
+        );
     }
 }
 
-export default SearchPanel
+export default SearchPanel;
